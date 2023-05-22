@@ -1,5 +1,6 @@
 import random
 
+# Dictionary containing all card totals
 card_dict = {2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10, 'J': 10, 'Q': 10, 'K': 10, 'A': 1}
 
 # Player class
@@ -65,8 +66,7 @@ class Player:
         self.check_total()
 
 
-
-
+# Program starts here
 
 print("===================\n")
 print("     BLACKJACK     \n")
@@ -97,6 +97,8 @@ if int(num) > 3:
     player4 = Player(4)
     players.append(player4)
 
+# Main gameplay
+# Each player will be given this prompt until they bust or stay
 for entrant in players:
     bust = False
     print("\nPlayer {}\'s turn!".format(entrant.player))
@@ -118,6 +120,7 @@ for entrant in players:
             entrant.view_hand()
             continue
 
+# Calculate and display final results
 totals = []
 print("\nFinal results\n")
 for entrant in players:
@@ -132,6 +135,7 @@ for entrant in players:
         totals.append(entrant.total)
     print("Player {} total: {} {}\n".format(entrant.player, entrant.total, result))
 
+# Determine the winner based on point totals
 if len(players) > 1:
     if totals.count(max(totals)) == 1:
         print("Player {} wins!\n\n".format(totals.index(max(totals)) + 1))
