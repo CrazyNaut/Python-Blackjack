@@ -117,3 +117,26 @@ for entrant in players:
         elif int(choice) == 3:
             entrant.view_hand()
             continue
+
+totals = []
+print("\nFinal results\n")
+for entrant in players:
+    if entrant.total == 21:
+        result = "(BLACKJACK)"
+        totals.append(entrant.total)
+    elif entrant.total > 21:
+        result = "(BUST)"
+        totals.append(0)
+    else:
+        result = ""
+        totals.append(entrant.total)
+    print("Player {} total: {} {}\n".format(entrant.player, entrant.total, result))
+
+if len(players) > 1:
+    if totals.count(max(totals)) == 1:
+        print("Player {} wins!\n\n".format(totals.index(max(totals)) + 1))
+    else:
+        print("It's a tie!\n\n")
+
+
+print("Thank you for playing!\n")
