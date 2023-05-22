@@ -7,7 +7,7 @@ card_dict = {2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10, 'J': 10, 'Q
 class Player:
     def __init__(self, player):
         self.player = player
-        self.cards = {}
+        self.cards = []
         self.total = 0
     
     # Determines whether to end the game
@@ -17,7 +17,7 @@ class Player:
             print("BLACKJACK!")
             return False
         if self.total > 21:
-            print("BUST!")
+            print("BUST!\nSorry, better luck next time!")
             return True
         else:
             return False
@@ -48,13 +48,18 @@ class Player:
         else:
             print("Adding {} points...".format(value))
             self.total += value
+
+        self.cards.append(face)
         
     
     # If "View hand" is selected
     def view_hand(self):
-        statement = "Your hand is as follows:\n"
-        for face in self.cards.keys():
-            statement += face + " "
+        if len(self.cards) == 0:
+            statement = "Your hand is currently empty."
+        else:
+            statement = "Your hand is as follows:\n"
+            for card in self.cards:
+                statement += str(card) + " "
         statement += "\nTotal: {}\n".format(self.total)
         print(statement)
         self.check_total()
@@ -96,7 +101,7 @@ for entrant in players:
     bust = False
     print("\nPlayer {}\'s turn!".format(entrant.player))
     while not bust:
-        choice = input("\nWhat would you like to do?\n1) Hit\n2) Stay\n3) Fold\n4) View hand\n")
+        choice = input("\nWhat would you like to do?\n1) Hit\n2) Stay\n3) View hand\n")
         if not choice.isnumeric():
             print("Invalid input. Please try again.")
             continue
@@ -107,9 +112,8 @@ for entrant in players:
             entrant.add_card()
             bust = entrant.check_total()
         elif int(choice) == 2:
-            pass
+            print("You have chosen to stay with {} points.\n".format(entrant.total))
+            break
         elif int(choice) == 3:
-            pass
-        elif int(choice) == 4:
             entrant.view_hand()
             continue
